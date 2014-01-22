@@ -475,7 +475,7 @@ int ioc_iswhole(unsigned int major, unsigned int minor)
  * Assigned name of the logical device.
  ***************************************************************************
  */
-char *transform_devmapname(unsigned int major, unsigned int minor)
+char *transform_devmapname(unsigned int internal_major, unsigned int internal_minor)
 {
 	DIR *dm_dir;
 	struct dirent *dp;
@@ -502,7 +502,7 @@ char *transform_devmapname(unsigned int major, unsigned int minor)
 			dm_major = major(aux.st_rdev);
 			dm_minor = minor(aux.st_rdev);
 
-			if ((dm_minor == minor) && (dm_major == major)) {
+			if ((dm_minor == internal_minor) && (dm_major == internal_major)) {
 				strncpy(name, dp->d_name, MAX_NAME_LEN);
 				name[MAX_NAME_LEN - 1] = '\0';
 				dm_name = name;
