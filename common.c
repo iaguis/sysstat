@@ -378,18 +378,12 @@ void init_nls(void)
  */
 int get_win_height(void)
 {
-	struct winsize win;
 	/*
 	 * This default value will be used whenever STDOUT
 	 * is redirected to a pipe or a file
 	 */
 	int rows = 3600 * 24;
 
-	if (ioctl(STDOUT_FILENO, TIOCGWINSZ, &win) != -1) {
-		if (win.ws_row > 2) {
-			rows = win.ws_row - 2;
-		}
-	}
 	return rows;
 }
 
